@@ -38,6 +38,8 @@ namespace FileCopyPaste
         String copyPathKey = "";
         String changeThemeKey = "";
         String closeWindowKey = "";
+        String defaultExeOpenAppKey = "";
+        String defaultOpenExeApps = "";
         String ignoreFiles = "";
         String ignoreDirs = "";
 
@@ -75,6 +77,8 @@ namespace FileCopyPaste
             openFileAppKeys = DataOp.ReadOpenFileApps();
             changeThemeKey = readKey("key_change_theme");
             closeWindowKey = readKey("key_close_window");
+            defaultExeOpenAppKey = readKey("key_default_open_app");
+            defaultOpenExeApps = readKey("default_open_app_exes");
         }
 
         private void readPath()
@@ -298,6 +302,7 @@ namespace FileCopyPaste
                 ListFile.Items.Clear();
                 selectedFile = null;
                 var dirinfo = new DirectoryInfo(path);
+                try { 
                 foreach (var fileinfo in dirinfo.GetFiles())
                 {
                     if (isIgnoreFile(fileinfo))
@@ -308,6 +313,10 @@ namespace FileCopyPaste
                     listitem.Content = fileinfo.Name;
                     listitem.Tag = fileinfo;
                     ListFile.Items.Add(listitem);
+                }
+                }catch(Exception e2)
+                {
+                    MessageBox.Show(e2.Message);
                 }
             }
         }
@@ -361,6 +370,25 @@ namespace FileCopyPaste
 
                 MessageBox.Show(message);
             }
+            else if (isKeyDown(e, defaultExeOpenAppKey))
+            {
+                var control = getFocusedControl();
+                if (!String.IsNullOrEmpty(defaultOpenExeApps))
+                {
+                    var exes = defaultOpenExeApps.Split(',');
+                    var exe1 = exes[0];
+                    var exe2 = exes.Count() > 1 ? exes[1] : "";
+                    if (control is TreeView && !String.IsNullOrEmpty(exe1))
+                    {
+                        var dir = (((control as TreeView).SelectedItem as TreeViewItem).Tag as DirectoryInfo).FullName;
+                        MyUtils.callProcess(exe1, dir);
+                    }else if (control is ListView && !String.IsNullOrEmpty(exe2))
+                    {
+                        var file = (((control as ListView).SelectedItem as ListViewItem).Tag as FileInfo).FullName;
+                        MyUtils.callProcess(exe2, file);
+                    }
+                }
+            }
             else if (isKeyDown(e, closeWindowKey))
             {
                 Close();
@@ -390,7 +418,7 @@ namespace FileCopyPaste
                     if (tree.SelectedItem != null)
                     {
                         var info = (tree.SelectedItem as TreeViewItem).Tag as DirectoryInfo;
-                        if (MessageBox.Show("delete " + info.Name + " ?") == MessageBoxResult.OK)
+                        if (MessageBox.Show("delete " + info.Name + " ?","delete",MessageBoxButton.OKCancel) == MessageBoxResult.OK)
                         {
                             try
                             {
@@ -399,7 +427,7 @@ namespace FileCopyPaste
                             }
                             catch (Exception e2)
                             {
-                                MessageBox.Show("删除失败，最多只能删除2层文件");
+                                MessageBox.Show("删除失败，"+e2.Message);
                             }
                         }
                     }

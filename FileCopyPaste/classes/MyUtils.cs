@@ -22,12 +22,25 @@ namespace FileCopyPaste.classes
         }
 
         public static void delDirecotry(DirectoryInfo info)
-        {
-            foreach (var file in info.GetFiles()) file.Delete();
-
-            foreach (var dir in info.GetDirectories()) dir.Delete();
-
+        {            
+            foreach (var file in info.GetFiles())
+            {
+                file.Delete();
+                //try { 
+                //    file.Delete();
+                //}catch(Exception e)
+                //{
+                //    File.SetAttributes(file.FullName, FileAttributes.Normal);
+                //    file.Delete();
+                //}
+            }
+            foreach (var dir in info.GetDirectories())
+            {
+                delDirecotry(dir);
+            }
+            Console.WriteLine("dir   "+info.FullName);
             info.Delete();
         }
+
     }
 }

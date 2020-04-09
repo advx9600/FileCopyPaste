@@ -21,21 +21,28 @@ namespace FileCopyPaste.classes
                                     new XElement("path0", "D:\\Workspace\\godot\\FireEmblem3"),
                                     new XElement("path1", "D:\\Workspace\\python\\lex-talionis"),
                                     new XElement("path2", Environment.GetFolderPath(Environment.SpecialFolder.Desktop)),
-                                    new XElement("key_paste", "ctrl+r"),
+                                    new XElement("key_paste", "ctrl+D1,ctrl+D2,ctrl+D3,ctrl+NumPad1"),
                                     new XElement("key_refresh_tree0", "f1"),
                                     new XElement("key_delete", "Delete"),
                                     new XElement("key_enter", "Return"),
-                                    new XElement("key_new_folder", "n"),
+                                    new XElement("key_new_folder", "ctrl+n"),
+                                    new XElement("key_copy_path","ctrl+c"),
+                                    new XElement("key_change_theme", "ctrl+b"),
+                                    new XElement("key_close_window","ctrl+w"),
+                                    new XElement("ignore_files", "desktop.ini,pyc,swp,swo,swl,swm,swn,pyd,pyx,import"),
+                                    new XElement("ignore_dirs",".git,.import"),
                                     new XElement("open_file_apps",
                                         new XElement("app",
                                             new XElement("file_ext","png,jpg,bmp,jpeg"),
-                                            new XElement("open_exe", "start"),
-                                            new XElement("use_cmd", "1")
+                                            new XElement("open_exe", "start")
                                         ),
                                         new XElement("app",
-                                            new XElement("file_ext", "txt"),
-                                            new XElement("open_exe", "notepad++"),
-                                            new XElement("use_cmd", "0")
+                                            new XElement("file_ext", "txt,xml,py"),
+                                            new XElement("open_exe", "notepad++")
+                                        ),
+                                        new XElement("app",
+                                            new XElement("file_ext", "tmx"),
+                                            new XElement("open_exe", "\"C:\\Program Files\\Tiled\\tiled.exe\"")
                                         )
                                     )
                                 )

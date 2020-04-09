@@ -1,0 +1,35 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:FileCopyPaste.themes">
+
+    <Color x:Key="BgColor">#1e1e1e</Color>
+    <Color x:Key="ForeColor">#e6e6e6</Color>
+    <SolidColorBrush x:Key="MyBackground" Color="{StaticResource BgColor}" />
+    <SolidColorBrush x:Key="MyForeground" Color="{StaticResource ForeColor}" />
+
+    <Style TargetType="NavigationWindow">
+        <Setter Property="Background" Value="{StaticResource MyBackground}" />
+    </Style>
+    <Style TargetType="Button">
+        <Setter Property="Background" Value="{StaticResource MyBackground}"/>
+        <Setter Property="Foreground" Value="{StaticResource MyForeground}" />
+    </Style>
+
+    <Style TargetType="TreeView">
+        <Setter Property="Background" Value="{StaticResource MyBackground}"/>
+    </Style>
+
+    <Style TargetType="TreeViewItem">
+        <Setter Property="Foreground" Value="{StaticResource MyForeground}" />
+    </Style>
+    
+    <Style TargetType="ListView">
+        <Setter Property="Background" Value="{StaticResource MyBackground}"/>
+        <Setter Property="Foreground" Value="{StaticResource MyForeground}" />
+    </Style>
+
+    <Style TargetType="Grid">
+        <Setter Property="Background" Value="{StaticResource MyBackground}"/>
+    </Style>
+
+</ResourceDictionary>

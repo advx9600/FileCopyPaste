@@ -4,23 +4,18 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FileCopyPaste"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Window.Resources>
-        <!--https://blog.csdn.net/m0_37080285/article/details/83620110-->
-        <Style  TargetType="{x:Type TreeViewItem}">
-            <Style.Resources>
-                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="DodgerBlue"/>
-                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="White"/>
-                <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="Blue"/>
-                <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightTextBrushKey}" Color="White"/>
-            </Style.Resources>
-        </Style>
-    </Window.Resources>
-
-    <Grid ShowGridLines="True" HorizontalAlignment="Stretch">
+        WindowStyle="None"        
+        ResizeMode="CanResize"
+        mc:Ignorable="d"        
+        Title="MainWindow" Height="550" Width="800">
+    <WindowChrome.WindowChrome>
+        <WindowChrome GlassFrameThickness="0" CornerRadius="0" CaptionHeight="0"/>
+    </WindowChrome.WindowChrome>
+    <!--Style="{StaticResource {x:Type Window}}"-->    
+    <Grid ShowGridLines="True" HorizontalAlignment="Stretch"  MouseDown="TitileBar_MouseDown">
         <Grid.RowDefinitions>
-            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="0"></RowDefinition>
+            <RowDefinition Height="30" PreviewMouseDown="TitileBar_MouseDown"></RowDefinition>
             <RowDefinition ></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -28,14 +23,20 @@
             <ColumnDefinition Width="400"></ColumnDefinition>
             <ColumnDefinition Width="200"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <Button Content="浏览" Name="Btn1" Click="Button_Click" Grid.Column="0"  Grid.Row="0" VerticalAlignment="Top" HorizontalAlignment="left"  MinWidth="75" MaxWidth="1000"/>
-        <Button Margin="3,0,0,0" Content="浏览" Name="Btn2" Click="Button_Click"  Grid.Column="1" Grid.Row="0" VerticalAlignment="Top" HorizontalAlignment="Center" MinWidth="75" MaxWidth="1000"/>
-        <StackPanel  Orientation="Horizontal" Grid.Column="0" Grid.Row="1" Margin="1,1,1,1">
-            <TreeView x:Name="Tree0" MinWidth="300" SelectedItemChanged="Tree_SelectedItemChanged" >
+        <StackPanel Orientation="Horizontal"  Grid.ColumnSpan="3" HorizontalAlignment="Right"
+                VerticalAlignment="Center">
+            
+        </StackPanel>
+        <Button Content="浏览"  Name="Btn1" Click="Button_Click" Grid.Column="0"  Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="left"  MinWidth="75" MaxWidth="1000"/>
+        <Button Margin="3,0,0,0" Content="浏览" Name="Btn2" Click="Button_Click"  Grid.Column="1" Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Center" MinWidth="75" MaxWidth="1000"/>
+        <Button Content="drag to move" Grid.Column="2" Grid.Row="1" PreviewMouseDown="TitileBar_MouseDown" Visibility="Hidden"/>
+
+        <StackPanel  Orientation="Horizontal" Grid.Column="0" Grid.Row="2" Margin="1,1,1,1">
+            <TreeView x:Name="Tree0" MinWidth="300" SelectedItemChanged="Tree_SelectedItemChanged" GotFocus="Tree_GotFocus">
             </TreeView>
         </StackPanel>
 
-        <StackPanel  Orientation="Horizontal" Grid.Column="1" Grid.Row="1">
+        <StackPanel  Orientation="Horizontal" Grid.Column="1" Grid.Row="2">
             <TreeView x:Name="Tree1" MinWidth="180" Margin="4,1,1,1"  SelectedItemChanged="Tree_SelectedItemChanged"  GotFocus="Tree_GotFocus">
 
             </TreeView>
@@ -44,7 +45,7 @@
 
             </TreeView>
         </StackPanel>
-        <ListView Name="ListFile"  Grid.Column="2" Grid.Row="1" SelectionChanged="ListFile_SelectionChanged" SelectionMode="Single">
+        <ListView Name="ListFile"  Grid.Column="2" Grid.Row="2" SelectionChanged="ListFile_SelectionChanged" SelectionMode="Extended">
         </ListView>
     </Grid>
 </Window>

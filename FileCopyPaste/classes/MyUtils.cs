@@ -11,8 +11,8 @@ namespace FileCopyPaste.classes
     class MyUtils
     {        
         public static void callProcess(string exe, string fullName)
-        {
-            var command = exe + " " + fullName;            
+        {            
+            var command = exe + " " + fullName;
             Process p = new Process();
             p.StartInfo.FileName = "cmd.exe ";
             p.StartInfo.Arguments = "/c " + command;

@@ -21,6 +21,7 @@
 | key_copy_path      | `ctry+c`                | 复制路径，把view3中选中的文件的路径及文件复制到剪贴板上，单一选择        |
 | key_change_theme   | `ctry+b`                | 改变显示主题，颜色切换为白天或黑夜模式                                  |
 | key_close_window   | `ctry+w`                | 关闭窗口，也可以 alt+f4                                 |
+| key_default_open_app| `ctry+Return`          | 用设定的程序打开，default_open_app_exe 参数进行设置                    |
 
 # 其它参数
 | 参数                | 描述                           |
@@ -29,8 +30,9 @@
 |open_file_apps->app| |                                               |
 | app->file_ext       | 文件后缀名，以逗号分开，不需要加 .                    |
 |app->open_exe        | 用来打开的命令或者程序路径，如果包含空格需要加双引号  |
-|ignore_files         |忽略的文件，不显示                                  |
-|ignore_dirs          |忽略的文件名，不显示                               |
+|ignore_files         |忽略的文件名，不显示                                  |
+|ignore_dirs          |忽略的目录名，不显示                               |
 |path0                |对应view0路径                                      |
-path1                 |对应view1路径                                    |
-path2                 |对应view2路径                                 |
+|path1                 |对应view1路径                                    |
+|path2                 |对应view2路径                                 |
+|default_open_app_exes  |用此程序打开文件夹和其它文件，以逗号分开                     |

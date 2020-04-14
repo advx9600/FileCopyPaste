@@ -11,8 +11,14 @@ namespace FileCopyPaste.classes
     class MyUtils
     {        
         public static void callProcess(string exe, string fullName)
-        {            
-            var command = exe + " " + fullName;
+        {
+            exe = CustomProcessString(exe);
+            fullName = CustomProcessString(fullName);
+            // https://superuser.com/questions/239565/can-i-use-the-start-command-with-spaces-in-the-path
+            // start 命令包含空格时，特殊处理
+            String startCmdSpecialProcessStr = exe.Trim().ToLower().Equals("start") && fullName.Contains("\"") ? "\"\"" : "";
+
+            var command = exe + " " + startCmdSpecialProcessStr + " " + fullName;
             Process p = new Process();
             p.StartInfo.FileName = "cmd.exe ";
             p.StartInfo.Arguments = "/c " + command;
@@ -21,6 +27,15 @@ namespace FileCopyPaste.classes
             p.Start();
         }
 
+        private static string CustomProcessString(String str)
+        {
+            if (!String.IsNullOrEmpty(str) && !str.Contains("\"") && ( str.Contains(" ")))
+            {
+                str = "\"" + str + "\"";
+            }
+            if (String.IsNullOrEmpty(str)) str = "";
+            return str;
+        }
         public static void delDirecotry(DirectoryInfo info)
         {            
             foreach (var file in info.GetFiles())

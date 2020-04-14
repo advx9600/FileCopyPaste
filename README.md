@@ -15,13 +15,14 @@
 | 参数                | 按键                   | 描述                           |
 | ------------------ | ----------------------- | -------------------------------------------------------------------- |
 | key_paste          | `ctry+1,ctry+2,ctry+3`  | 粘贴操作，ctry+1复制到view0，ctry+2 复制到view1，ctry+3复制到view2     |
-| key_delete         | `Delete`                | 删除操作，焦点在哪里就删除哪个view中选中的文件，最多删除2层 |
+| key_delete         | `Delete`                | 删除操作，焦点在哪里就删除哪个view中选中的文件		 |
 | key_enter          | `Return`                | 打开View3中的文件，最好不要更改，对应 open_file_apps 进行操作            |
 | key_new_folder     | `ctry+n`                | 新建文件夹操作，焦点需要对应到显示文件夹的view                            |
 | key_copy_path      | `ctry+c`                | 复制路径，把view3中选中的文件的路径及文件复制到剪贴板上，单一选择        |
 | key_change_theme   | `ctry+b`                | 改变显示主题，颜色切换为白天或黑夜模式                                  |
 | key_close_window   | `ctry+w`                | 关闭窗口，也可以 alt+f4                                 |
 | key_default_open_app| `ctry+Return`          | 用设定的程序打开，default_open_app_exe 参数进行设置                    |
+| key_restart		| `ctry+r`          		| 重启应用                    |
 
 # 其它参数
 | 参数                | 描述                           |

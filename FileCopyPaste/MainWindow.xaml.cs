@@ -38,6 +38,7 @@ namespace FileCopyPaste
         String copyPathKey = "";
         String changeThemeKey = "";
         String closeWindowKey = "";
+        String restartKey = "";
         String defaultExeOpenAppKey = "";
         String defaultOpenExeApps = "";
         String ignoreFiles = "";
@@ -45,6 +46,7 @@ namespace FileCopyPaste
 
         List<DataOp.OpenFileApp> openFileAppKeys;
         int currentTheme = 0;
+        private long firstCopyFileTicks;
 
         public MainWindow()
         {
@@ -79,6 +81,7 @@ namespace FileCopyPaste
             closeWindowKey = readKey("key_close_window");
             defaultExeOpenAppKey = readKey("key_default_open_app");
             defaultOpenExeApps = readKey("default_open_app_exes");
+            restartKey = readKey("key_restart");
         }
 
         private void readPath()
@@ -386,8 +389,13 @@ namespace FileCopyPaste
                     {
                         var file = (((control as ListView).SelectedItem as ListViewItem).Tag as FileInfo).FullName;
                         MyUtils.callProcess(exe2, file);
+
                     }
                 }
+            }else if (isKeyDown(e, restartKey))
+            {
+                Application.Current.Shutdown();
+                System.Windows.Forms.Application.Restart();
             }
             else if (isKeyDown(e, closeWindowKey))
             {
@@ -456,8 +464,10 @@ namespace FileCopyPaste
                 }
                 else if (obj is ListView && selectedFile != null)
                 {
-                    Clipboard.SetText(selectedFile.FullName);
-                    if (ListFile.SelectedItems.Count > 0) {
+                    var doubleClick = DateTimeOffset.Now.ToUnixTimeMilliseconds() - firstCopyFileTicks < 200 ? true : false;
+                    firstCopyFileTicks = DateTimeOffset.Now.ToUnixTimeMilliseconds();
+                    // 单击复制文件，双击复制文件路径
+                    if (!doubleClick && ListFile.SelectedItems.Count > 0) {
                         StringCollection files = new StringCollection();
                         foreach (var item in ListFile.SelectedItems)
                         {
@@ -465,6 +475,7 @@ namespace FileCopyPaste
                         }
                         Clipboard.SetFileDropList(files);
                     }
+                    if (doubleClick) Clipboard.SetText(selectedFile.FullName);
                 }
             }
             else if (isKeyDown(e, changeThemeKey))

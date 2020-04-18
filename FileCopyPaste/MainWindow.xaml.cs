@@ -43,6 +43,7 @@ namespace FileCopyPaste
         String defaultOpenExeApps = "";
         String ignoreFiles = "";
         String ignoreDirs = "";
+        String renameFileKey = "";
 
         List<DataOp.OpenFileApp> openFileAppKeys;
         int currentTheme = 0;
@@ -82,6 +83,7 @@ namespace FileCopyPaste
             defaultExeOpenAppKey = readKey("key_default_open_app");
             defaultOpenExeApps = readKey("default_open_app_exes");
             restartKey = readKey("key_restart");
+            renameFileKey = readKey("key_rename_file");
         }
 
         private void readPath()
@@ -337,6 +339,30 @@ namespace FileCopyPaste
         protected override void OnKeyDown(KeyEventArgs e)
         {
             Console.WriteLine(e.Key);
+            var control = getFocusedControl();
+            if (control is ListView)
+            {
+                if (isKeyDown(e, renameFileKey) && selectedFile != null)
+                {
+                    var oldname = selectedFile.Name;
+                    InputBoxItem[] items = new InputBoxItem[] {
+                            new InputBoxItem("name", oldname)
+                     };
+
+                    InputBox input = InputBox.Show("Rename File", items, InputBoxButtons.OKCancel);
+                    if (input.Result == InputBoxResult.OK)
+                    {
+                        string name = input.Items["name"];
+                        if (!String.IsNullOrEmpty(name) && !name.Equals(oldname))
+                        {
+                            selectedFile.MoveTo(System.IO.Path.Combine(selectedFile.DirectoryName, name));
+                            (ListFile.SelectedItem as ListViewItem).Content = name;
+                        }
+                    }
+                    return;
+                }
+            }
+
             if (isKeyDown(e, pasteTreeKey))
             {
                 var num = -1;
@@ -375,7 +401,6 @@ namespace FileCopyPaste
             }
             else if (isKeyDown(e, defaultExeOpenAppKey))
             {
-                var control = getFocusedControl();
                 if (!String.IsNullOrEmpty(defaultOpenExeApps))
                 {
                     var exes = defaultOpenExeApps.Split(',');

@@ -23,6 +23,7 @@
 | key_close_window   | `ctry+w`                | 关闭窗口，也可以 alt+f4                                 |
 | key_default_open_app| `ctry+Return`          | 用设定的程序打开，default_open_app_exe 参数进行设置                    |
 | key_restart		| `ctry+r`          		| 重启应用                    |
+| key_rename_file		| `ctry+r`          	| 重命名文件,首先要选择 view3中的文件 |
 
 # 其它参数
 | 参数                | 描述                           |

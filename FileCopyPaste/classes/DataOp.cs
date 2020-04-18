@@ -30,6 +30,7 @@ namespace FileCopyPaste.classes
                                     new XElement("key_change_theme", "ctrl+b"),
                                     new XElement("key_close_window", "ctrl+w"),
                                     new XElement("key_restart", "ctrl+r"),
+                                    new XElement("key_rename_file", "ctrl+r"),
                                     new XElement("key_default_open_app", "ctrl+Return"),
                                     new XElement("default_open_app_exes", "explorer,notepad++"),
                                     new XElement("ignore_files", "desktop.ini,pyc,swp,swo,swl,swm,swn,pyd,pyx,import"),

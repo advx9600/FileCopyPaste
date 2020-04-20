@@ -46,6 +46,7 @@ namespace FileCopyPaste
         String renameFileKey = "";
 
         List<DataOp.OpenFileApp> openFileAppKeys;
+        List<DataOp.SpecialCmd> specialCmdKeys;
         int currentTheme = 0;
         private long firstCopyFileTicks;
 
@@ -84,6 +85,7 @@ namespace FileCopyPaste
             defaultOpenExeApps = readKey("default_open_app_exes");
             restartKey = readKey("key_restart");
             renameFileKey = readKey("key_rename_file");
+            specialCmdKeys = DataOp.ReadSpecialCmds();
         }
 
         private void readPath()
@@ -531,6 +533,17 @@ namespace FileCopyPaste
                                 refreshTree(tree);
                             }
                         }
+                    }
+                }
+            }
+            else
+            {
+                foreach (var key in specialCmdKeys)
+                {
+                    if (isKeyDown(e, key.key))
+                    {
+                        MyUtils.callProcess(key.cmd,"");
+                        break;
                     }
                 }
             }

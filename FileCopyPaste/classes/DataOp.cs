@@ -35,10 +35,20 @@ namespace FileCopyPaste.classes
                                     new XElement("default_open_app_exes", "explorer,notepad++"),
                                     new XElement("ignore_files", "desktop.ini,pyc,swp,swo,swl,swm,swn,pyd,pyx,import"),
                                     new XElement("ignore_dirs",".git,.import"),
+                                    new XElement("special_cmds",
+                                        new XElement("cmd",
+                                            new XElement("key", "shift+e"),
+                                            new XElement("cmd", "notepad++ D:\\Workspace\\visualStudio\\FileCopyPaste\\FileCopyPaste\\bin\\Debug\\data.xml")
+                                        )
+                                    ),
                                     new XElement("open_file_apps",
                                         new XElement("app",
                                             new XElement("file_ext","png,jpg,bmp,jpeg"),
                                             new XElement("open_exe", "start")
+                                        ),
+                                        new XElement("app",
+                                            new XElement("file_ext", "mp4,MP4"),
+                                            new XElement("open_exe", "C:\\Program Files (x86)\\VideoLAN\\VLC\\vlc.exe")
                                         ),
                                         new XElement("app",
                                             new XElement("file_ext", "txt,xml,py"),
@@ -134,6 +144,32 @@ namespace FileCopyPaste.classes
                 if (app.Element("use_cmd") != null) use_cmd = app.Element("use_cmd").Value;
                 var openApp = new OpenFileApp(app.Element("file_ext").Value,app.Element("open_exe").Value, use_cmd);
                 list.Add(openApp);
+            }
+            return list;
+        }
+
+        public class SpecialCmd
+        {
+            public string key;
+            public string cmd;
+
+            public SpecialCmd(String key,String cmd)
+            {
+                this.key = key;
+                this.cmd = cmd;
+            }            
+        }
+
+        public static List<SpecialCmd> ReadSpecialCmds()
+        {
+            var list = new List<SpecialCmd>();
+            IfnotExistcreateFile();
+            XElement root = XElement.Load(XML);
+            var apps = root.Element("special_cmds").Elements("cmd");
+            foreach (var app in apps)
+            {
+                var item = new SpecialCmd(app.Element("key").Value, app.Element("cmd").Value);
+                list.Add(item);
             }
             return list;
         }

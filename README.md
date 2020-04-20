@@ -9,7 +9,7 @@
 2 再选中view1中的一个节点，对应目录如果有文件，就会显示在View3中<br/>
 3 选中View3中的任意一个文件，按 ctry + 1，文件就复制粘贴到了View0的目录<br/>
 
-# 修改目录下面的 data.xml 即可修改各种操作
+# 修改目录下面的 data.xml 即可修改各种操作,alt键无用
 
 # 快捷键
 | 参数                | 按键                   | 描述                           |
@@ -38,3 +38,6 @@
 |path1                 |对应view1路径                                    |
 |path2                 |对应view2路径                                 |
 |default_open_app_exes  |用此程序打开文件夹和其它文件，以逗号分开                     |
+|special_cmds			| 自定义按键执行命令|
+|special_cmds->key		| 需要自定义的按键|
+|special_cmds->cmd		| 自定义执行的命令|

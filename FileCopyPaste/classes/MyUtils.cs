@@ -19,6 +19,10 @@ namespace FileCopyPaste.classes
             String startCmdSpecialProcessStr = exe.Trim().ToLower().Equals("start") && fullName.Contains("\"") ? "\"\"" : "";
 
             var command = exe + " " + startCmdSpecialProcessStr + " " + fullName;
+            // https://stackoverflow.com/questions/6376113/how-do-i-use-spaces-in-the-command-prompt
+            // 包含四个引号，如"c:/program file/vlc.exe" "1 2.ogg" 必须写成 ""c:/program file/vlc.exe" "1 2.ogg""
+            if (command.Split('\"').Length > 4)
+                command = "\""+command +"\"";
             Process p = new Process();
             p.StartInfo.FileName = "cmd.exe ";
             p.StartInfo.Arguments = "/c " + command;
